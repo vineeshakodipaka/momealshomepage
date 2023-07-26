@@ -10,6 +10,8 @@ import { useNavigate } from 'react-router-dom';
 const FoodDonation = () => {
   // State for slider and time input
   const [sliderValue, setSliderValue] = useState(5);
+    // New state variable for the "Serving Size" input
+    const [servingSizeValue, setServingSizeValue] = useState('');
   const [timeInputValue, setTimeInputValue] = useState('12:00');
   
   // Get current date for date input
@@ -28,9 +30,14 @@ const FoodDonation = () => {
     navigate('/fooddonarpage');
   }; 
 
-  // Handler for slider change
-  const handleSliderChange = (event) => {
-    setSliderValue(parseInt(event.target.value));
+     // Function to handle changes in the slider
+     const handleSliderChange = (event, newValue) => {
+      setSliderValue(newValue);
+      setServingSizeValue(newValue); // Set the same value to "Serving Size" input field
+    };
+  // Function to handle changes in the "Serving Size" input field
+  const handleServingSizeInputChange = (event) => {
+    setServingSizeValue(event.target.value);
   };
 
   // Handler for time input change
@@ -99,7 +106,7 @@ const FoodDonation = () => {
                  
                   <input type="time" id="formpage1inp" className="timeinput" value={timeInputValue} onChange={handleTimeInputChange} placeholder="Preferred Time" />
                   <input type="date" id="formpage1inp" className="date-input"  min={today} />
-                  <input type="text" id="formpage1inp" className="imp" placeholder="Serving Size" value={sliderValue} />
+                  <input type="text" id="formpage1inp" className="imp" onChange={handleServingSizeInputChange} placeholder="Serving Size"  value={servingSizeValue} />
   
                   {/* Slider */}
                   <div className="range-slider d-flex flex-column align-items-center">

@@ -11,6 +11,9 @@ import { useNavigate } from 'react-router-dom';
 const Fooddonationpageinfo = () => {
   // State variables using useState hook
   const [sliderValue, setSliderValue] = useState(5);
+  // New state variable for the "Serving Size" input
+  const [servingSizeValue, setServingSizeValue] = useState('');
+
   const [timeInputValue, setTimeInputValue] = useState('12:00');
   const now = new Date();
   const today = now.toISOString().split('T')[0];
@@ -18,10 +21,15 @@ const Fooddonationpageinfo = () => {
   const [cooktimedatalist, setCooktimedatalist] = useState('');
   const cooktimedata = ['2 hours ago', '3 hours ago', '4 hours ago', '6 hours ago', '9+ hours ago'];
 
-  // Function to handle changes in the slider
-  const handleSliderChange = (event) => {
-    setSliderValue(parseInt(event.target.value));
+   // Function to handle changes in the slider
+  const handleSliderChange = (event, newValue) => {
+    setSliderValue(newValue);
+    setServingSizeValue(newValue); // Set the same value to "Serving Size" input field
   };
+// Function to handle changes in the "Serving Size" input field
+const handleServingSizeInputChange = (event) => {
+  setServingSizeValue(event.target.value);
+};
 
   // Function to handle changes in the time input field
   const handleTimeInputChange = (event) => {
@@ -43,6 +51,8 @@ const Fooddonationpageinfo = () => {
   const cooktimedataChange = (event) => {
     setCooktimedatalist(event.target.value);
   };
+
+
 
   // Navigation function using react-router-dom
   const navigatec = useNavigate();
@@ -115,7 +125,7 @@ const Fooddonationpageinfo = () => {
                   {/* Input fields */}
                   <input type="time" id="formpage2inp" className="timeinput" value={timeInputValue} onChange={handleTimeInputChange} placeholder="Preferred Time" />
                   <input type="date" id="formpage2inp" className="date-input" min={today} />
-                  <input type="text" id="formpage2inp" className="imp" placeholder="Serving Size" value={sliderValue} />
+                  <input type="text" id="formpage2inp" className="imp"  onChange={handleServingSizeInputChange} placeholder="Serving Size"  value={servingSizeValue} />
 
                   {/* Slider */}
                   <div className="range-slider d-flex flex-column align-items-center">
